@@ -6,17 +6,20 @@ const publicRoutes = ["/auth"];
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+  const session = await cookies();
+  const hasSession = !!session.get("ssid");
 
-  // If route is public, allow it
+  // 🚫 Prevent logged-in users from accessing /auth/*
   if (publicRoutes.some((route) => pathname === route || pathname.startsWith(`${route}/`))) {
+    if (hasSession) {
+      // redirect authenticated users away from auth pages
+      return NextResponse.redirect(new URL(`/${session.get("ssid")?.value}`, request.url));
+    }
     return NextResponse.next();
   }
 
-  // Check session (for protected routes)
-  const session = await cookies();
-
-  // Redirect to the login page if there is no session
-  if (!session.get("ssid")) {
+  // 🔒 Protect all other routes: redirect to login if no session
+  if (!hasSession) {
     const loginUrl = new URL("/auth/login", request.url);
     loginUrl.searchParams.set("from", pathname);
     return NextResponse.redirect(loginUrl);

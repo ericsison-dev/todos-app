@@ -1,6 +1,7 @@
 "use client";
 
 import axios from "axios";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FunctionComponent, useState } from "react";
 
@@ -62,10 +63,17 @@ export const LoginForm: FunctionComponent = () => {
         <span className="text-muted-foreground pl-1 text-sm">Please enter your email address</span>
       </div>
 
-      <div>
+      <div className="space-y-2">
         <button className="bg-primary text-primary-foreground w-full rounded-md py-2" onClick={handleLogin}>
           Login
         </button>
+
+        <section className="flex items-center gap-1">
+          <p>No account yet? Register </p>
+          <Link href="/auth/register" className="font-medium text-indigo-400 underline underline-offset-1">
+            here.
+          </Link>
+        </section>
       </div>
     </div>
   );
