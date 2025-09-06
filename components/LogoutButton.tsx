@@ -8,7 +8,7 @@ export const LogoutButton: FunctionComponent = () => {
   const router = useRouter();
 
   const handleLogout = async () => {
-    const result = await axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/auth/logout`);
+    const result = await axios.post(`/api/auth/logout`);
     if (result.data) {
       router.push("/auth/login");
     }

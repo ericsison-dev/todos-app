@@ -15,7 +15,7 @@ export const RegistrationForm: FunctionComponent = () => {
 
   const handleRegistration = async () => {
     try {
-      const result = await axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/auth/register`, {
+      const result = await axios.post(`/api/auth/register`, {
         fullName,
         username,
         password,

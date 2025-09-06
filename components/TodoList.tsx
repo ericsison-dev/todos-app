@@ -25,7 +25,7 @@ export const TodoList: FunctionComponent = () => {
     if (!params?.id) return;
 
     try {
-      const res = await axios.get<Todo[]>(`${process.env.NEXT_PUBLIC_HOST}/api/todos/${params.id}`);
+      const res = await axios.get<Todo[]>(`/api/todos/${params.id}`);
       if (res.data) {
         setTodos(res.data);
       }
@@ -41,7 +41,7 @@ export const TodoList: FunctionComponent = () => {
 
   const handleCompleteTodo = async (todoId: string) => {
     try {
-      await axios.patch(`${process.env.NEXT_PUBLIC_HOST}/api/todos/mark-complete`, {
+      await axios.patch(`/api/todos/mark-complete`, {
         todoId,
         isCompleted: true,
       });
@@ -56,7 +56,7 @@ export const TodoList: FunctionComponent = () => {
     if (!newTodo.trim()) return;
 
     try {
-      await axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/todos`, {
+      await axios.post(`/api/todos`, {
         title: newTodo,
         userId: params.id,
       });
@@ -70,7 +70,7 @@ export const TodoList: FunctionComponent = () => {
 
   const handleDeleteTodo = async (todoId: string) => {
     try {
-      await axios.delete(`${process.env.NEXT_PUBLIC_HOST}/api/todos/${todoId}`);
+      await axios.delete(`/api/todos/${todoId}`);
       await fetchTodos();
     } catch (err) {
       console.error("Failed to delete todo:", err);
