@@ -19,6 +19,7 @@
     "@radix-ui/react-avatar": "^1.1.10",
     "@radix-ui/react-label": "^2.1.7",
     "@radix-ui/react-slot": "^1.2.3",
+    "@radix-ui/react-tooltip": "^1.2.8",
     "argon2": "^0.44.0",
     "axios": "^1.11.0",
     "class-variance-authority": "^0.7.1",

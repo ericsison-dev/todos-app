@@ -6,6 +6,7 @@ import { useParams } from "next/navigation";
 import { FunctionComponent, useEffect, useState, useCallback } from "react";
 import { toast } from "sonner";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "./ui/alert-dialog";
+import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
 
 type Todo = {
   id: string;
@@ -124,24 +125,38 @@ export const TodoList: FunctionComponent = () => {
                 </section>
 
                 <section className="space-x-1">
-                  <button
-                    title="Mark as complete"
-                    className="hover:bg-muted rounded border p-1"
-                    onClick={() => handleCompleteTodo(todo.id)}
-                  >
-                    <Check className="size-4" />
-                  </button>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <button
+                        title="Mark as complete"
+                        className="hover:bg-muted rounded border p-1"
+                        onClick={() => handleCompleteTodo(todo.id)}
+                      >
+                        <Check className="size-4" />
+                      </button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      Mark this as completed
+                    </TooltipContent>
+                  </Tooltip>
 
                   <AlertDialog>
-                    <AlertDialogTrigger asChild>
-                      <button
-                        title="Delete todo"
-                        className="hover:bg-muted rounded border p-1"
-                        // onClick={() => handleDeleteTodo(todo.id)}
-                      >
-                        <Trash className="size-4" />
-                      </button>
-                    </AlertDialogTrigger>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <AlertDialogTrigger asChild>
+                          <button
+                            title="Delete todo"
+                            className="hover:bg-muted rounded border p-1"
+                            // onClick={() => handleDeleteTodo(todo.id)}
+                          >
+                            <Trash className="size-4" />
+                          </button>
+                        </AlertDialogTrigger>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        Remove this todo item
+                      </TooltipContent>
+                    </Tooltip>
                     <AlertDialogContent>
                       <AlertDialogHeader>
                         <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
