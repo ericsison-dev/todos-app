@@ -1,4 +1,9 @@
 import { RegistrationForm } from "@/components/RegistrationForm";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Register",
+};
 
 export default function RegistrationPage() {
   return (
