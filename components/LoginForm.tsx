@@ -14,7 +14,7 @@ export const LoginForm: FunctionComponent = () => {
 
   const handleLogin = async () => {
     try {
-      const result = await axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/auth/login`, {
+      const result = await axios.post(`/api/auth/login`, {
         username,
         password,
       });
