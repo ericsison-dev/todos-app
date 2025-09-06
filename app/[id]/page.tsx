@@ -1,4 +1,5 @@
 import { TodoList } from "@/components/TodoList";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import db from "@/db/connection";
 import { users } from "@/db/schemas";
 import { eq } from "drizzle-orm";
@@ -24,7 +25,13 @@ export default async function UserPage(props: { params: Promise<{ id: string }> 
   if(user) {
     return (
       <div className="flex flex-col h-full w-full items-center pt-40 gap-5">
-        <h1 className="text-2xl">{user[0].fullName}</h1>
+        <section className="flex flex-col items-center gap-1">
+            <Avatar className="size-10">
+            <AvatarImage src="https://github.com/shadcn.png" />
+            <AvatarFallback>CN</AvatarFallback>
+          </Avatar>
+          <h1 className="text-2xl">{user[0].fullName}</h1>
+        </section>
         <TodoList />
       </div>
     );
