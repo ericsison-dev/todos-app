@@ -4,6 +4,7 @@ import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FunctionComponent, useState } from "react";
+import { toast } from "sonner";
 
 export const LoginForm: FunctionComponent = () => {
   const [username, setUsername] = useState("");
@@ -24,6 +25,7 @@ export const LoginForm: FunctionComponent = () => {
       }
     } catch (error) {
       setError(true);
+      toast.error("Invalid credentials!")
     }
   };
 

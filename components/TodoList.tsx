@@ -4,6 +4,8 @@ import axios from "axios";
 import { Check, Trash } from "lucide-react";
 import { useParams } from "next/navigation";
 import { FunctionComponent, useEffect, useState, useCallback } from "react";
+import { toast } from "sonner";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "./ui/alert-dialog";
 
 type Todo = {
   id: string;
@@ -47,6 +49,8 @@ export const TodoList: FunctionComponent = () => {
       });
 
       await fetchTodos();
+      toast.success("Todo item marked as complete!")
+   
     } catch (err) {
       console.error("Failed to complete todo:", err);
     }
@@ -63,6 +67,7 @@ export const TodoList: FunctionComponent = () => {
 
       setNewTodo("");
       await fetchTodos();
+      toast.success("Successfully added a new todo item!")
     } catch (err) {
       console.error("Failed to add todo:", err);
     }
@@ -127,13 +132,29 @@ export const TodoList: FunctionComponent = () => {
                     <Check className="size-4" />
                   </button>
 
-                  <button
-                    title="Delete todo"
-                    className="hover:bg-muted rounded border p-1"
-                    onClick={() => handleDeleteTodo(todo.id)}
-                  >
-                    <Trash className="size-4" />
-                  </button>
+                  <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                      <button
+                        title="Delete todo"
+                        className="hover:bg-muted rounded border p-1"
+                        // onClick={() => handleDeleteTodo(todo.id)}
+                      >
+                        <Trash className="size-4" />
+                      </button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                      <AlertDialogHeader>
+                        <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                        <AlertDialogDescription>
+                          This action cannot be undone. This will permanently delete your todo item.
+                        </AlertDialogDescription>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction onClick={() => handleDeleteTodo(todo.id)}>Continue</AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
                 </section>
               </li>
             ))}
